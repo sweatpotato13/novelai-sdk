@@ -8,7 +8,7 @@ export class Nyaai {
     constructor() {
         this.apiEndpoint = "https://api.nya.la";
         this.headers = {
-            accept: "*/*",
+            "accept": "*/*",
             "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
             "content-type": "application/json",
             "sec-ch-ua":
@@ -18,7 +18,7 @@ export class Nyaai {
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
             "sec-fetch-site": "same-site",
-            Referer: "https://ai.nya.la/",
+            "Referer": "https://ai.nya.la/",
             "Referrer-Policy": "strict-origin-when-cross-origin",
         };
     }
