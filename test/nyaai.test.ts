@@ -1,10 +1,19 @@
 import { Nyaai } from "../src/index";
-import axios from "axios";
-
-jest.mock("axios");
 
 describe("nyaai-sdk Test", () => {
+    let accessToken: string;
+
     test("login", async () => {
-        expect("1").toBe("1");
+        const nyaai = new Nyaai();
+        const response = await nyaai.login();
+        accessToken = response.accessToken;
+        expect(response.accessToken).toBeDefined();
+    });
+
+    test("generate-image", async () => {
+        const nyaai = new Nyaai();
+        const response = await nyaai.generateImage("masterpiece", accessToken);
+
+        expect(response.imageBase64).toBeDefined();
     });
 });

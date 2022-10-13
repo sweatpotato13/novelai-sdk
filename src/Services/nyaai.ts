@@ -33,13 +33,16 @@ export class Nyaai {
     public async login(): Promise<{ accessToken: string }> {
         try {
             const url = this.apiEndpoint;
-            return await this.wrapFetch(
+            const response = await axios.post(
                 url + "/user/login",
                 {
                     key: "6HzwaRaxuZmPxRKJYOIE5rxnZN8wdPiqgWupUVt2KHB4EjVA4E__URS3xSkI60jy",
                 },
-                this.headers
+                {
+                    headers: this.headers
+                }
             );
+            return response.data;
         } catch (error: any) {
             throw new Error(`login Error: ${error.message}`);
         }
@@ -64,34 +67,20 @@ export class Nyaai {
                     uc: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
                 },
             };
-
-            const response = await this.wrapFetch(
+            const response = await axios.post(
                 url + "/ai/generate-image",
                 body,
                 {
-                    ...this.headers,
-                    "authorization": `Bearer ${authorization}`,
+                    headers: {
+                        ...this.headers,
+                        "authorization": `Bearer ${authorization}`,    
+                    }
                 }
             );
 
-            return { imageBase64: response.substr(27, response.length) };
+            return { imageBase64: response.data.substr(27, response.data.length) };
         } catch (error: any) {
             throw new Error(`generateImage Error: ${error.message}`);
-        }
-    }
-
-    /* Wrap */
-    private async wrapFetch(
-        url: string,
-        body: any,
-        headers: any
-    ): Promise<any> {
-        try {
-            const res = await axios.post(url, body, headers);
-            const data = await res.data;
-            return data;
-        } catch (error: any) {
-            throw new Error(`Failed to fetch: ${error.message}`);
         }
     }
 }
