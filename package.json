@@ -1,0 +1,70 @@
+{
+    "name": "nyaai",
+    "version": "1.0.0",
+    "description": "nyaai SDK with typescript",
+    "main": "./dist/src/index.js",
+    "types": "./dist/src/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sweatpotato13/nyaai-sdk.git"
+    },
+    "bugs": {
+        "url": "https://github.com/sweatpotato13/nyaai-sdk/issues"
+    },
+    "homepage": "https://github.com/sweatpotato13/nyaai-sdk",
+    "files": [
+        "dist"
+    ],
+    "lint-staged": {
+        "*.{ts,tsx,js,jsx}": [
+            "yarn run eslint --fix"
+        ],
+        "*.{md,json}": [
+            "prettier --write"
+        ]
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^16.2.1",
+        "@commitlint/config-conventional": "^16.2.1",
+        "@types/jest": "^28.1.6",
+        "@types/node": "^17.0",
+        "@typescript-eslint/eslint-plugin": "^5.12.0",
+        "@typescript-eslint/parser": "^5.12.0",
+        "axios-mock-adapter": "^1.21.1",
+        "eslint": "^8.9.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-jest": "^26.1.1",
+        "git-branch-is": "^4.0.0",
+        "husky": "^8.0.1",
+        "jest": "^28.1.3",
+        "lint-staged": "^12.3.4",
+        "prettier": "^2.5.1",
+        "rimraf": "^3.0.2",
+        "standard-version": "^9.3.2",
+        "ts-jest": "^28.0.7",
+        "ts-node-dev": "^1.1.8",
+        "tsutils": "^3.21.0",
+        "typescript": "^4.7.4"
+    },
+    "scripts": {
+        "dev": "ts-node-dev src/main.ts --trace-sync-io",
+        "test": "jest",
+        "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+        "prettier": "prettier --write \"src/**/*.ts\"",
+        "build": "tsc",
+        "prebuild": "rimraf ./dist",
+        "release": "standard-version",
+        "release:major": "standard-version -- --release-as major",
+        "release:minor": "standard-version -- --release-as minor",
+        "release:patch": "standard-version -- --release-as patch",
+        "release:version": "standard-version -- --release-as",
+        "prepare": "husky install",
+        "pre-commit": "lint-staged"
+    },
+    "author": "CuteWisp <sweatpotato13@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.27.2"
+    },
+    "packageManager": "yarn@3.2.4"
+}
