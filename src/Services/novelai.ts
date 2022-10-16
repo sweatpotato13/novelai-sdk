@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import { calcAccessKey } from "src/utils";
+import { calcAccessKey } from "../utils";
 
 export class NovelAi {
     private apiEndpoint: string;
