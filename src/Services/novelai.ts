@@ -53,7 +53,7 @@ export class NovelAi {
     /* Generate Image */
     public async generateImage(input: string, authorization: string): Promise<{ imageBase64: string }> {
         try {
-            const url = "https://backend-production-svc.novelai.net/ai/generate-image";
+            const url = "https://backend-production-svc.novelai.net";
             const body = {
                 input,
                 model: "safe-diffusion",
