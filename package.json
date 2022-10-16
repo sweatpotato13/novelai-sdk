@@ -1,6 +1,6 @@
 {
     "name": "novelai",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "novelai SDK with typescript",
     "main": "./dist/src/index.js",
     "types": "./dist/src/index.d.ts",
