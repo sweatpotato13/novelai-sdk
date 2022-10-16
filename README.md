@@ -1,16 +1,16 @@
-<h1 align="center">Welcome to nyaai-sdk 👋</h1>
+<h1 align="center">Welcome to novelai-sdk 👋</h1>
 
-[![npm version](https://badge.fury.io/js/nyaai.svg)](https://badge.fury.io/js/nyaai)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  ![npm](https://img.shields.io/npm/dw/nyaai.svg)
+[![npm version](https://badge.fury.io/js/novelai.svg)](https://badge.fury.io/js/novelai) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![npm](https://img.shields.io/npm/dw/novelai.svg)
 
-> Ethersdcan API library with typescript
+> novelAI SDK for Typescript
 
-### 🏠 [Homepage](https://github.com/sweatpotato13/nyaai-sdk)
+### 🏠 [Homepage](https://github.com/sweatpotato13/novelai-sdk)
 
 ## Install
 
 ```sh
-npm i nyaai
-yarn add nyaai
+npm i novelai
+yarn add novelai
 ```
 
 ## Run tests
@@ -20,20 +20,38 @@ yarn test
 ```
 
 ## Usage
-```
-??
+
+```ts
+import fs from "fs";
+import { NovelAi } from "novelai";
+
+async function main() {
+    const novelAi = new NovelAi();
+    const accessToken = await (
+        await novelAi.login("email", "password")
+    ).accessToken;
+    const data = await novelAi.generateImage(
+        "mastrpieece, best quality", // Enter Tags
+        accessToken
+    );
+    const buffer = Buffer.from(data.imageBase64, "base64");
+    fs.writeFileSync("new-path.jpg", buffer);
+    console.log("done");
+}
+
+main();
 ```
 
 ## Author
 
 👤 **CuteWisp <sweatpotato13@gmail.com>**
 
-* Website: Cutewisp.com
-* Github: [@sweatpotato13](https://github.com/sweatpotato13)
+-   Website: Cutewisp.com
+-   Github: [@sweatpotato13](https://github.com/sweatpotato13)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/sweatpotato13/nyaai-sdk/issues). 
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/sweatpotato13/novelai-sdk/issues).
 
 ## Show your support
 

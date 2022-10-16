@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+import { calcAccessKey } from "src/utils";
 
-export class Nyaai {
+export class NovelAi {
     private apiEndpoint: string;
     private headers: any;
 
     constructor() {
-        this.apiEndpoint = "https://api.nya.la";
+        this.apiEndpoint = "https://api.novelai.net";
         this.headers = {
             "accept": "*/*",
             "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
@@ -18,7 +19,7 @@ export class Nyaai {
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
             "sec-fetch-site": "same-site",
-            "Referer": "https://ai.nya.la/",
+            "Referer": "https://api.novelai.net/",
             "Referrer-Policy": "strict-origin-when-cross-origin",
         };
     }
@@ -30,13 +31,14 @@ export class Nyaai {
     }
 
     /* Login */
-    public async login(): Promise<{ accessToken: string }> {
+    public async login(email: string, password: string): Promise<{ accessToken: string }> {
         try {
+            const accessKey = await calcAccessKey(email, password);
             const url = this.apiEndpoint;
             const response = await axios.post(
                 url + "/user/login",
                 {
-                    key: "6HzwaRaxuZmPxRKJYOIE5rxnZN8wdPiqgWupUVt2KHB4EjVA4E__URS3xSkI60jy",
+                    key: accessKey,
                 },
                 {
                     headers: this.headers
@@ -73,7 +75,7 @@ export class Nyaai {
                 {
                     headers: {
                         ...this.headers,
-                        "authorization": `Bearer ${authorization}`,    
+                        "authorization": `Bearer ${authorization}`,
                     }
                 }
             );

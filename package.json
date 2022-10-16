@@ -1,17 +1,17 @@
 {
-    "name": "nyaai",
+    "name": "novelai",
     "version": "1.0.0",
-    "description": "nyaai SDK with typescript",
+    "description": "novelai SDK with typescript",
     "main": "./dist/src/index.js",
     "types": "./dist/src/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/sweatpotato13/nyaai-sdk.git"
+        "url": "https://github.com/sweatpotato13/novelai-sdk.git"
     },
     "bugs": {
-        "url": "https://github.com/sweatpotato13/nyaai-sdk/issues"
+        "url": "https://github.com/sweatpotato13/novelai-sdk/issues"
     },
-    "homepage": "https://github.com/sweatpotato13/nyaai-sdk",
+    "homepage": "https://github.com/sweatpotato13/novelai-sdk",
     "files": [
         "dist"
     ],
@@ -27,6 +27,7 @@
         "@commitlint/cli": "^16.2.1",
         "@commitlint/config-conventional": "^16.2.1",
         "@types/jest": "^28.1.6",
+        "@types/libsodium-wrappers": "^0.7.10",
         "@types/node": "^17.0",
         "@typescript-eslint/eslint-plugin": "^5.12.0",
         "@typescript-eslint/parser": "^5.12.0",
@@ -42,7 +43,7 @@
         "rimraf": "^3.0.2",
         "standard-version": "^9.3.2",
         "ts-jest": "^28.0.7",
-        "ts-node-dev": "^1.1.8",
+        "ts-node-dev": "^2.0.0",
         "tsutils": "^3.21.0",
         "typescript": "^4.7.4"
     },
@@ -64,7 +65,8 @@
     "author": "CuteWisp <sweatpotato13@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "axios": "^0.27.2"
+        "axios": "^0.27.2",
+        "libsodium-wrappers": "^0.7.10"
     },
     "packageManager": "yarn@3.2.4"
 }
