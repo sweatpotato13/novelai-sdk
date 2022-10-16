@@ -1,10 +1,10 @@
-import { Nyaai } from "../src/index";
+import { NovelAi } from "../src/index";
 import axios from "axios";
 
 jest.setTimeout(300000);
 jest.mock("axios");
 
-describe("nyaai-sdk Test", () => {
+describe("novelai-sdk Test", () => {
     let accessToken: string;
     
     test("login", async () => {
@@ -18,8 +18,8 @@ describe("nyaai-sdk Test", () => {
             resp
         );
 
-        const nyaai = new Nyaai();
-        const response = await nyaai.login();
+        const novelAi = new NovelAi();
+        const response = await novelAi.login("?", "?");
         accessToken = response.accessToken;
         expect(response.accessToken).toBeDefined();
     });
@@ -33,8 +33,8 @@ describe("nyaai-sdk Test", () => {
             resp
         );
 
-        const nyaai = new Nyaai();
-        const response = await nyaai.generateImage("masterpiece", accessToken);
+        const novelAi = new NovelAi();
+        const response = await novelAi.generateImage("masterpiece", accessToken);
         expect(response.imageBase64).toBeDefined();
     });
 });

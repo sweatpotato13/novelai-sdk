@@ -1,3 +1,3 @@
-import "./Services/nyaai";
+import "./Services/novelai";
 
-export * from "./Services/nyaai";
+export * from "./Services/novelai";
