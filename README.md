@@ -30,10 +30,13 @@ async function main() {
     const accessToken = await (
         await novelAi.login("email", "password")
     ).accessToken;
-    const data = await novelAi.generateImage(
-        "mastrpieece, best quality", // Enter Tags
-        accessToken
-    );
+    const data = await novelAi.generateImage(accessToken, {
+        input: "masterpiece",
+        model: "safe",
+        resolution: "landscape",
+        sampling: "k_euler_ancestral",
+        seed: 1,
+    });
     const buffer = Buffer.from(data.imageBase64, "base64");
     fs.writeFileSync("new-path.jpg", buffer);
     console.log("done");

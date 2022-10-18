@@ -2,6 +2,30 @@
 import axios from "axios";
 import { calcAccessKey } from "../utils";
 
+const modelMap = {
+    safe: 'safe-diffusion',
+    nai: 'nai-diffusion',
+    furry: 'nai-diffusion-furry',
+} as const
+
+const resolutionMap = {
+    landscape: { height: 512, width: 768 },
+    portrait: { height: 768, width: 512 },
+    square: { height: 640, width: 640 },
+} as const
+
+const samplingMap = {
+    k_euler_ancestral: "k_euler_ancestral",
+    k_euler: "k_euler",
+    k_lms: "k_lms",
+    plms: "plms",
+    ddim: "ddim"
+} as const
+
+type Model = keyof typeof modelMap
+type Resolution = keyof typeof resolutionMap
+type Sampling = keyof typeof samplingMap
+
 export class NovelAi {
     private apiEndpoint: string;
     private headers: any;
@@ -9,18 +33,7 @@ export class NovelAi {
     constructor() {
         this.apiEndpoint = "https://api.novelai.net";
         this.headers = {
-            "accept": "*/*",
-            "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
             "content-type": "application/json",
-            "sec-ch-ua":
-                '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"macOS"',
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
-            "Referer": "https://api.novelai.net/",
-            "Referrer-Policy": "strict-origin-when-cross-origin",
         };
     }
 
@@ -51,19 +64,24 @@ export class NovelAi {
     }
 
     /* Generate Image */
-    public async generateImage(input: string, authorization: string): Promise<{ imageBase64: string }> {
+    public async generateImage(authorization: string, params: { input: string, model?: Model, resolution?: Resolution, sampling?: Sampling, seed?: number }): Promise<{ imageBase64: string }> {
         try {
-            const url = this.apiEndpoint;
+            const { input, model, seed, resolution, sampling } = params;
+            const modelValue = modelMap[model];
+            const resolutionValue = resolutionMap[resolution];
+            const samplingValue = samplingMap[sampling];
+
+            const url = "https://backend-production-svc.novelai.net";
             const body = {
-                input,
-                model: "safe-diffusion",
+                input: input,
+                model: model ? modelValue : "safe-diffusion",
                 parameters: {
-                    width: 512,
-                    height: 768,
+                    width: resolution ? resolutionValue.width : 512,
+                    height: resolution ? resolutionValue.height : 768,
                     scale: 12,
-                    sampler: "k_euler_ancestral",
+                    sampler: sampling ? samplingValue : "k_euler_ancestral",
                     steps: 28,
-                    seed: this.getRandomInt(1, 2100000000),
+                    seed: seed ? seed : this.getRandomInt(1, 2100000000),
                     n_samples: 1,
                     ucPreset: 0,
                     uc: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
