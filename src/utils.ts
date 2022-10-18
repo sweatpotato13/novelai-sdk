@@ -3,7 +3,6 @@ import {
     crypto_pwhash_ALG_ARGON2ID13, crypto_pwhash_SALTBYTES, ready,
 } from 'libsodium-wrappers'
 
-
 export async function calcAccessKey(email: string, password: string) {
     await ready
     return crypto_pwhash(
