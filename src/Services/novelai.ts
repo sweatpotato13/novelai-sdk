@@ -71,7 +71,7 @@ export class NovelAi {
             const resolutionValue = resolutionMap[resolution];
             const samplingValue = samplingMap[sampling];
 
-            const url = "https://backend-production-svc.novelai.net";
+            const url = this.apiEndpoint;
             const body = {
                 input: input,
                 model: model ? modelValue : "safe-diffusion",
