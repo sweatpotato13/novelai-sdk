@@ -28,10 +28,14 @@ type Sampling = keyof typeof samplingMap
 
 export class NovelAi {
     private apiEndpoint: string;
+    private textEndpoint: string;
+    private imageEndpoint: string;
     private headers: any;
 
     constructor() {
         this.apiEndpoint = "https://api.novelai.net";
+        this.textEndpoint = "https://text.novelai.net";
+        this.imageEndpoint = "https://image.novelai.net";
         this.headers = {
             "content-type": "application/json",
         };
@@ -57,7 +61,7 @@ export class NovelAi {
                     headers: this.headers
                 }
             );
-            return response.data;
+            return { accessToken: (response.data as { token: string }).token };
         } catch (error: any) {
             throw new Error(`login Error: ${error.message}`);
         }
@@ -71,7 +75,7 @@ export class NovelAi {
             const resolutionValue = resolutionMap[resolution];
             const samplingValue = samplingMap[sampling];
 
-            const url = this.apiEndpoint;
+            const url = this.textEndpoint;
             const body = {
                 input: input,
                 model: model ? modelValue : "safe-diffusion",
@@ -98,7 +102,7 @@ export class NovelAi {
                 }
             );
 
-            return { imageBase64: response.data.substr(27, response.data.length) };
+            return { imageBase64: (response.data as string).substr(27) };
         } catch (error: any) {
             throw new Error(`generateImage Error: ${error.message}`);
         }
